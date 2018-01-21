@@ -60,7 +60,7 @@ def retrieve_access_token(client_id, client_secret):
 	resp_json = json.loads(req.text)
 	
 	#print out the status and access token
-	print('REQUEST STATUS:' + str(req.status_code) + '\n')
+	print 'REQUEST STATUS:' + str(req.status_code) + '\n'
 	return resp_json['access_token']
 
 ###
@@ -111,9 +111,9 @@ def make_payment(access_token, credit_card_token, payment_amount):
 
 	resp_json = json.loads(req.text)
 
-	print('\nRESULT: ' + str(resp_json['result']['status']))
-	print('AMOUNT: ' + str(resp_json['paymentAmount']))
-	print('TYPE: ' + str(resp_json['paymentMethod']['type']))
+	print '\nRESULT: ' + str(resp_json['result']['status'])
+	print 'AMOUNT: ' + str(resp_json['paymentAmount'])
+	print 'TYPE: ' + str(resp_json['paymentMethod']['type'])
 
 ###
 # the main program
@@ -125,7 +125,7 @@ def main():
 
 	# get an access token
 	access_token = retrieve_access_token(client_id, client_secret)
-	print('\nACCESS TOKEN: ' + access_token)
+	print '\nACCESS TOKEN: ' + access_token
 
 	#create a fake billing address
 	billing_address = {
@@ -139,7 +139,7 @@ def main():
 	# initialize a credit card object and get a credit card token from api end point
 	example_cc = CreditCard('4134185779995000', '123', 3, 2018, 'Test', billing_address, 'example@example.com')
 	credit_card_token = retieve_credit_card_token(example_cc, access_token)
-	print('\nCREDIT CARD TOKEN: ' + credit_card_token)
+	print '\nCREDIT CARD TOKEN: ' + credit_card_token
 
 	#make a payment with the access token, credit card token and an amount
 	#get the amount from html form then pay
@@ -148,6 +148,6 @@ def main():
 	#amount =  form.getvalue('amount')
 	#print(amount)
 	
-	make_payment(access_token, credit_card_token, 12.3)
+	make_payment(access_token, credit_card_token, 5)
 
 main()

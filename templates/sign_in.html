@@ -20,7 +20,9 @@
     <div class="wrapper">
     <form action="{{ url_for('sign_in') }}" method=post class="form-signin">
          {{ form.csrf_token }}
-        <h2 class="form-signin-heading">Please Sign In</h2>
+        <h2 class="form-signin-heading">Sign In</h2>
+        <img src='/static/img/header-bg.jpg'>
+    <br>
         {{ form.email(**{'class': 'form-control', 'placeholder': 'Email Address', 'required': '', 'autofocus': ''}) }}
          {{ form.username(**{'class': 'form-control', 'placeholder': 'Username', 'required': ''}) }}
         {{ form.password(**{'class': 'form-control', 'placeholder': 'Password', 'required': ''}) }}
