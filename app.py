@@ -11,7 +11,7 @@ app = Flask(__name__)
 app.config.from_object('config')
 db= Database().db
 #app.config mongo
-#######
+########
 #mongo=pymongo(app)
 
 print(db.collection_names())
