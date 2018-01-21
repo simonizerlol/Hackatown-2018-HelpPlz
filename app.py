@@ -18,43 +18,31 @@ print(db.collection_names())
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
-    if request.method == "POST":
-
-        requestname= request.form['requestname']
-
-        description=request.form['description']
-
-        task= Task(requestname, session['username'],description,session['email']).json()
-        print(task.items())
-        db.Tasks.insert_one(task)
-
-    all_requests = db.Tasks.find({})
-#
-
+    all_requests = db.Tasks.find({})r
     return render_template('index.html', username = session['username'] if 'username' in session else None, requests=all_requests)
 
 @app.route('/sign_in/', methods=['GET', 'POST'])
 def sign_in():
     sign_in_form = SignInForm(request.form)
+    print(request.method)
     if request.method == "POST" and sign_in_form.validate_on_submit():
+        print('fdsafa')
         if not db.users.find_one({'username': sign_in_form.username.data}):
             user = User(sign_in_form.email.data, sign_in_form.username.data, sign_in_form.password.data)
             db.users.insert_one(user.json())
             session['username']= user.username
             session['email']= user.email
-            return redirect(url_for('sign_in', form=sign_in_form))
+            return redirect(url_for('index'))
         else:
             flash('username already exists')
             return render_template('sign_in.html', form=sign_in_form)
-    elif request.method == 'GET':
-            return render_template('sign_in.html', form=sign_in_form)
-    else:
-        return render_template('sign_in.html', form=sign_in_form)
+    return render_template('sign_in.html', form=sign_in_form)
 #3#
 @app.route('/email/<string:username>')
 def emailreceive(username):
         receiver = db.Tasks.find_one({'taskauthor': username})
-
+        receiver.accepted = True
+        db.Tasks.update_one({'taskauthor':username}, {'$set': receiver}, upsert = False)
         ## receiver = 'keshvanidillon@gmail.com'3
         server = smtplib.SMTP('smtp.gmail.com', 587)
 
@@ -127,7 +115,18 @@ def login_page():
 
     return render_template('login.html')
 
+@app.route('/newrequest/', methods = ['GET','POST'])
+def newrequest():
+    if request.method == "POST":
+        requestname = request.form['requestname']
 
+        description = request.form['description']
+        task = Task(requestname, session['username'], description, session['email']).json()
+        print(task.items())
+        db.Tasks.insert_one(task)
+        return redirect(url_for('index'))
+    else:
+        return redirect(url_for('index'))
 
 
 
