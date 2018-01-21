@@ -17,7 +17,7 @@
     {% endif %} {% endwith %}
 
     {% if form %}
-    <div class="wrapper">
+    <div class="wrapper" style="max-width=300px;">
     <form action="{{ url_for('sign_in') }}" method=post class="form-signin">
          {{ form.csrf_token }}
         <h2 class="form-signin-heading">Sign In</h2>
@@ -30,7 +30,7 @@
         <label class="checkbox">
              {{ form.accept_rules(**{'id': 'accept_rules'}) }} I accept the site rules
         </label>
-        {{ form.submit(**{'class': 'btn btn-lg btn-primary btn-block'}) }}
+        {{ form.submit(**{'class': 'btn btn-lg btn-primary btn-block input-sm'}) }}
     </form>
     </div>
     {% endif %}

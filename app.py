@@ -11,7 +11,7 @@ app = Flask(__name__)
 app.config.from_object('config')
 db= Database().db
 #app.config mongo
-########
+###########3
 #mongo=pymongo(app)
 
 print(db.collection_names())
@@ -29,6 +29,7 @@ def index():
         db.Tasks.insert_one(task)
 
     all_requests = db.Tasks.find({})
+#
 
     return render_template('index.html', username = session['username'] if 'username' in session else None, requests=all_requests)
 
@@ -37,7 +38,6 @@ def sign_in():
     sign_in_form = SignInForm(request.form)
     if request.method == "POST" and sign_in_form.validate_on_submit():
         if not db.users.find_one({'username': sign_in_form.username.data}):
-            print(sign_in_form.errors)
             user = User(sign_in_form.email.data, sign_in_form.username.data, sign_in_form.password.data)
             db.users.insert_one(user.json())
             session['username']= user.username
@@ -50,21 +50,21 @@ def sign_in():
             return render_template('sign_in.html', form=sign_in_form)
     else:
         return render_template('sign_in.html', form=sign_in_form)
-#
-@app.route('/email/', methods = ['GET','POST'])
-def emailreceive():
-    if request.method == "POST":
-        receiver = request.form['email']
-        # receiver = 'keshvanidillon@gmail.com'
+#3#
+@app.route('/email/<string:username>')
+def emailreceive(username):
+        receiver = db.Tasks.find_one({'taskauthor': username})
+
+        ## receiver = 'keshvanidillon@gmail.com'3
         server = smtplib.SMTP('smtp.gmail.com', 587)
 
         server.starttls()
 
         server.login('temppythontest@gmail.com', 'pythonisdope')
-
-        server.sendmail('temppythontest@gmail.com', receiver, 'Someone needs your help!')
+        print(session['email'])
+        server.sendmail('temppythontest@gmail.com', receiver['email'], 'Someone is willing to help you! Please contact them at: {0}'.format(session['email']))
         {}
-    return render_template('getemailform.html')
+        return render_template('getemailform.html')
 
 @app.route('/payment/', methods = ['GET','POST'])
 def payment():
@@ -74,7 +74,7 @@ def payment():
         client_id = 'f2a2ab8e-9a66-4a05-89e4-c29f196f9e33'
         client_secret = 'b11198e6-9939-4d12-90c9-e024c8ae9367'
 
-        # get an access token
+        # get an access token#
         access_token = retrieve_access_token(client_id, client_secret)
         print('\nACCESS TOKEN: ' + access_token)
 
@@ -93,7 +93,7 @@ def payment():
         print('\nCREDIT CARD TOKEN: ' + credit_card_token)
 
         # make a payment with the access token, credit card token and an amount
-        # get the amount from html form then pay
+        # get the amount from html form then pay#
 
         make_payment(access_token, credit_card_token, amounts)
 
