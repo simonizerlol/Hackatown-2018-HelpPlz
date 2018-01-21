@@ -31,14 +31,14 @@ def sign_in():
             user = User(sign_in_form.username.data,
                     sign_in_form.email.data, sign_in_form.password.data)
             db.users.insert_one(user.json())
-            return redirect(url_for('index', form=sign_in_form))
+            return redirect(url_for('sign_in', form=sign_in_form))
         else:
             flash('username already exists')
-            return render_template('index.html', form=sign_in_form)
+            return render_template('sign_in.html', form=sign_in_form)
     elif request.method == 'GET':
-            return render_template('index.html', form=sign_in_form)
+            return render_template('sign_in.html', form=sign_in_form)
     else:
-        return render_template('index.html', form=sign_in_form)
+        return render_template('sign_in.html', form=sign_in_form)
 
 @app.route('/email/', methods = ['GET','POST'])
 def emailreceive():
