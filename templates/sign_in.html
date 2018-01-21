@@ -23,7 +23,7 @@
         <h2 class="form-signin-heading">Sign Up</h2>
         <img src='/static/img/header-bg.jpg'>
     <br>
-        {{ form.email(**{'class': 'form-control', 'placeholder': 'Email Address', 'required': '', 'autofocus': ''}) }}
+        {{ form.email(**{'class': 'form-control', 'placeholder': 'Email Address', 'required': '', 'autofocus':''}) }}
 
          {{ form.username(**{'class': 'form-control', 'placeholder': 'Username', 'required': ''}) }}
 
@@ -35,6 +35,8 @@
         </label>
         {{ form.submit(**{'class': 'btn btn-lg btn-primary btn-block input-sm'}) }}
     </form>
+    <p> Already have an account? </p>
+    <button type="button" class="signupbtn">Log in Here</button>
     </div>
     {% endif %}
     {{ super() }}
