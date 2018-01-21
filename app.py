@@ -3,6 +3,9 @@ import smtplib
 from flask import Flask, render_template, flash, request, url_for, redirect, session
 from util.database import *
 from util.pyrest import *
+from forms.sign_in import SignInForm
+from util.database import Database
+from models.user import User
 
 
 app = Flask(__name__)
@@ -19,6 +22,24 @@ def index():
     if 'username' in session:
         return 'you are logged in'
     return render_template('index.html')
+
+@app.route('/sign_in/', methods=['GET', 'POST'])
+def sign_in():
+    sign_in_form = SignInForm(request.form)
+    if request.method == "POST" and sign_in_form.validate_on_submit():
+        if not db.users.find_one({'username': sign_in_form.username.data}):
+            print(sign_in_form.errors)
+            user = User(sign_in_form.username.data,
+                    sign_in_form.email.data, sign_in_form.password.data)
+            db.users.insert_one(user.json())
+            return redirect(url_for('index', form=sign_in_form))
+        else:
+            flash('username already exists')
+            return render_template('index.html', form=sign_in_form)
+    elif request.method == 'GET':
+            return render_template('index.html', form=sign_in_form)
+    else:
+        return render_template('index.html', form=sign_in_form)
 
 @app.route('/email/', methods = ['GET','POST'])
 def emailreceive():
