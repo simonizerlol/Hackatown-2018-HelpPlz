@@ -41,13 +41,13 @@
               <a class="nav-link js-scroll-trigger" href="#services">Requests</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="#portfolio">View requests</a>
+              <a class="nav-link js-scroll-trigger" href="#requestform">View requests</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="#about">About</a>
+              <a class="nav-link js-scroll-trigger" href="{{url_for('login_page')}}">Log-in</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="#team">Team</a>
+              <a class="nav-link js-scroll-trigger" href="{{url_for('sign_in')}}">Sign-Up</a>
             </li>
             
           </ul>
@@ -73,24 +73,36 @@
           <div class="col-lg-12 text-center">
             <h2 class="section-heading text-uppercase">Requests</h2>
             <h3 class="section-subheading text-muted">We all need a little help sometimes.</h3>
+            <form method="POST" action="{{url_for('index')}}">
+              <div class="form-group">
+                <label for="exampleFormControlInput1">Name of Request</label>
+                <input type="text" class="form-control" id="exampleFormControlInput1" name ="requestname" placeholder="Input your request">
+              </div>
+              <div class="form-group">
+                <label for="exampleFormControlTextarea1">Request Description</label>
+                <textarea class="form-control" id="exampleFormControlTextarea1" name="description" rows="6"></textarea>
+              </div>
+
+              <div class="clearfix">
+              <button type="submit" class="btn btn-primary" {% if not username %}disabled{%endif%}>Submit </button>
+            </div>
+            </form>
           </div>
-        </div>
-        <div class="row text-center">
-          
-          <div class="col-lg-12 text-center">
-            <span class="fa-stack fa-4x">
-              <i class="fa fa-circle fa-stack-2x text-primary"></i>
-              <i class="fa fa-laptop fa-stack-1x fa-inverse"></i>
-            </span>
-            <h4 class="service-heading">Responsive Design</h4>
-            <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam architecto quo inventore harum ex magni, dicta impedit.</p>
-          </div>
-          
         </div>
       </div>
     </section>
 
-   
+  <!-- View Requests -->
+    <section id="requestform">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12 text-center">
+            <h2 class="section-heading text-uppercase">View Requests</h2>
+            <h3 class="section-subheading text-muted">We all need a little help sometimes.</h3>
+          </div>
+        </div>
+      </div>
+    </section>
 
     <!-- About -->
     <section id="about">
@@ -190,7 +202,7 @@
           <div class="col-sm-4">
             <div class="team-member">
               
-              <h4>Jaylee</h4>
+              <h4>Jaleel</h4>
               <p class="text-muted">Lead Developer</p>
               <ul class="list-inline social-buttons">
                 <li class="list-inline-item">

@@ -13,16 +13,21 @@ class User():
 
     
 class Task():
-    def __init__(self, help, username, accepted = False, acceptor = None ):
+    def __init__(self, help, username, description, email, accepted = False, acceptor = None):
         self.help=help
         self.taskauthor=username
+        self.description = description
+        self.email = email
         self.accepted = accepted
         self.acceptor = acceptor
+
 
     def json(self):
         return{
             'help': self.help,
             'taskauthor':self.taskauthor,
+            'description':self.description,
+            'email': self.email,
             'accepted':self.accepted,
             'acceptor':self.acceptor
         }
