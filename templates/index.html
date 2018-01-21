@@ -73,7 +73,7 @@
           <div class="col-lg-12 text-center">
             <h2 class="section-heading text-uppercase">Requests</h2>
             <h3 class="section-subheading text-muted">We all need a little help sometimes.</h3>
-            <form method="POST" action="{{url_for('index')}}">
+            <form method="POST" id="newrequest" action="{{url_for('newrequest')}}">
               <div class="form-group">
                 <label for="exampleFormControlInput1">Name of Request</label>
                 <input type="text" class="form-control" id="exampleFormControlInput1" name ="requestname" placeholder="Input your request">
@@ -84,7 +84,7 @@
               </div>
 
               <div class="clearfix">
-              <button type="submit" class="btn btn-primary" {% if not username %}disabled{%endif%}>Submit </button>
+              <input type="submit" class="btn btn-primary" value="Submit" {% if not username %}disabled{%endif%}>
             </div>
             </form>
           </div>
@@ -106,6 +106,7 @@
             <div class="col-lg-12 text-center">
                 <div id="accordion">
                     {% for request in requests %}
+                    {% if request.accepted == False %}
                     <div class="card">
                         <div class="card-header" id="headingOne">
                             <h5 class="mb-0">
@@ -147,6 +148,7 @@
                             </div>
                         </div>
                     </div>
+                    {% endif %}
                     {% endfor %}
                 </div>
 
@@ -155,7 +157,7 @@
         {% endif %}
       </div>
     </section>
-
+    
     <!-- About -->
     <section id="about">
       <div class="container">
