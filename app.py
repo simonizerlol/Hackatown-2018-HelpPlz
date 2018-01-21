@@ -28,9 +28,9 @@ def index():
         print(task.items())
         db.Tasks.insert_one(task)
 
+    all_requests = db.Tasks.find({})
 
-
-    return render_template('index.html', username = session['username'] if 'username' in session else None)
+    return render_template('index.html', username = session['username'] if 'username' in session else None, requests=all_requests)
 
 @app.route('/sign_in/', methods=['GET', 'POST'])
 def sign_in():
@@ -76,7 +76,7 @@ def payment():
 
         # get an access token
         access_token = retrieve_access_token(client_id, client_secret)
-        print '\nACCESS TOKEN: ' + access_token
+        print('\nACCESS TOKEN: ' + access_token)
 
         # create a fake billing address
         billing_address = {
@@ -90,7 +90,7 @@ def payment():
         # initialize a credit card object and get a credit card token from api end point
         example_cc = CreditCard('4134185779995000', '123', 3, 2018, 'Test', billing_address, 'example@example.com')
         credit_card_token = retieve_credit_card_token(example_cc, access_token)
-        print '\nCREDIT CARD TOKEN: ' + credit_card_token
+        print('\nCREDIT CARD TOKEN: ' + credit_card_token)
 
         # make a payment with the access token, credit card token and an amount
         # get the amount from html form then pay
