@@ -10,3 +10,19 @@ class User():
     'username': self.username,
     'password': self.password
     }
+
+    
+class Task():
+    def __init__(self, help, username, accepted = False, acceptor = None ):
+        self.help=help
+        self.taskauthor=username
+        self.accepted = accepted
+        self.acceptor = acceptor
+
+    def json(self):
+        return{
+            'help': self.help,
+            'taskauthor':self.taskauthor,
+            'accepted':self.accepted,
+            'acceptor':self.acceptor
+        }
