@@ -148,6 +148,6 @@ def main():
 	#amount =  form.getvalue('amount')
 	#print(amount)
 	
-	make_payment(access_token, credit_card_token, 12.3)
+	make_payment(access_token, credit_card_token, 5)
 
 main()
