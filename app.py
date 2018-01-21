@@ -4,7 +4,6 @@ from flask import Flask, render_template, flash, request, url_for, redirect, ses
 from util.database import *
 from util.pyrest import *
 from forms.sign_in import SignInForm
-from util.database import Database
 from models.user import User
 
 
